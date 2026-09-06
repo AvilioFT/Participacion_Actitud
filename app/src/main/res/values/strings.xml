@@ -45,6 +45,7 @@
     <string name="btn_ver_texto">Ver texto</string>
     <string name="btn_descargar">Descargar</string>
     <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_nueva_consulta">Nueva consulta</string>
     <string name="lbl_formato">Formato de descarga</string>
     <string name="msg_generando">Generando documento…</string>
 

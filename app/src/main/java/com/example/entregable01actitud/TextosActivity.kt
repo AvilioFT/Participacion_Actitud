@@ -30,6 +30,7 @@ class TextosActivity : AppCompatActivity() {
     private lateinit var btnVerTexto: Button
     private lateinit var btnDescargar: Button
     private lateinit var btnEliminar: Button
+    private lateinit var btnNuevaConsulta: Button
 
     private var textoSeleccionadoId: String? = null
     private var formatoSeleccionado: FormatoDocumento.Formato? = null
@@ -82,6 +83,10 @@ class TextosActivity : AppCompatActivity() {
             R.id.btnEliminar
         )
 
+        btnNuevaConsulta = findViewById(
+            R.id.btnNuevaConsulta
+        )
+
         chipGroupFormato = findViewById(
             R.id.chipGroupFormato
         )
@@ -120,6 +125,20 @@ class TextosActivity : AppCompatActivity() {
 
         btnEliminar.setOnClickListener {
             eliminarSeleccionado()
+        }
+
+        btnNuevaConsulta.setOnClickListener {
+            val principal = Intent(
+                this,
+                MainActivity::class.java
+            ).apply {
+                addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                )
+            }
+            startActivity(principal)
+            finish()
         }
     }
 
