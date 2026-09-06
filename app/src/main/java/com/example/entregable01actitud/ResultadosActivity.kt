@@ -115,6 +115,13 @@ class ResultadosActivity : AppCompatActivity() {
                 )
             }
 
+            if (!imagenUrl.isNullOrEmpty()) {
+                intent.putExtra(
+                    "TEXTO_IMAGEN",
+                    imagenUrl
+                )
+            }
+
             startActivity(intent)
         }
     }

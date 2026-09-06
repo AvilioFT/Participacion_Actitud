@@ -63,7 +63,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
-                        android:hint="@string/hint_fecha_inicio"
                         android:inputType="date"
                         android:text="@string/texto_fecha_inicio" />
 
@@ -80,7 +79,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
-                        android:hint="@string/hint_fecha_fin"
                         android:inputType="date"
                         android:text="@string/texto_fecha_fin" />
 
@@ -95,7 +93,6 @@
                         android:id="@+id/edtMagnitud"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_magnitud"
                         android:inputType="numberDecimal"
                         android:text="@string/texto_magnitud" />
 
@@ -141,7 +138,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
-                        android:hint="@string/hint_fecha_nasa"
                         android:inputType="date"
                         android:text="@string/texto_fecha_nasa" />
 
@@ -187,7 +183,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="addressLocality"
-                        android:hint="@string/hint_localidad"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -233,7 +228,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
-                        android:hint="@string/hint_fecha_inicio"
                         android:inputType="date"
                         android:text="@string/texto_fecha_inicio" />
 
@@ -250,7 +244,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
-                        android:hint="@string/hint_fecha_fin"
                         android:inputType="date"
                         android:text="@string/texto_fecha_fin" />
 
@@ -266,7 +259,6 @@
                         android:id="@+id/edtMonto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_monto"
                         android:inputType="numberDecimal"
                         android:text="@string/texto_monto" />
 

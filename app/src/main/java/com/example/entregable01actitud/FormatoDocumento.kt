@@ -2,6 +2,7 @@ package com.example.entregable01actitud
 
 import org.json.JSONArray
 import org.json.JSONObject
+import android.graphics.BitmapFactory
 import java.io.ByteArrayOutputStream
 import java.util.Locale
 import java.util.zip.ZipEntry
@@ -50,7 +51,8 @@ object FormatoDocumento {
         api: String,
         fecha: String,
         contenido: String,
-        csv: String
+        csv: String,
+        imagen: ByteArray? = null
     ): ByteArray {
         val tabla = if (csv.isBlank()) emptyList() else parseCsv(csv)
         return when (formatoId) {
@@ -59,7 +61,7 @@ object FormatoDocumento {
             "xml" -> aXml(api, fecha, contenido, tabla).toByteArray(Charsets.UTF_8)
             "html" -> aHtml(api, fecha, contenido, tabla).toByteArray(Charsets.UTF_8)
             "md" -> aMarkdown(api, fecha, contenido, tabla).toByteArray(Charsets.UTF_8)
-            "docx" -> aDocx(api, fecha, contenido, tabla)
+            "docx" -> aDocx(api, fecha, contenido, tabla, imagen)
             "xlsx" -> aXlsx(contenido, tabla)
             else -> contenido.toByteArray(Charsets.UTF_8)
         }
@@ -210,7 +212,8 @@ object FormatoDocumento {
         api: String,
         fecha: String,
         contenido: String,
-        tabla: List<List<String>>
+        tabla: List<List<String>>,
+        imagen: ByteArray? = null
     ): ByteArray {
         val cuerpo = StringBuilder()
         cuerpo.append(parrafoDocx(api, true, 16))
@@ -218,6 +221,12 @@ object FormatoDocumento {
         for (linea in contenido.split("\n")) {
             cuerpo.append(parrafoDocx(linea, false, 11))
         }
+
+        val datosImagen = prepararImagen(imagen)
+        if (datosImagen != null) {
+            cuerpo.append(parrafoImagenDocx(datosImagen))
+        }
+
         if (tabla.size > 1) {
             cuerpo.append(parrafoDocx("Tabla", true, 13))
             cuerpo.append("<w:tbl><w:tblPr><w:tblW w:w=\"5000\" w:type=\"pct\"/></w:tblPr>")
@@ -242,16 +251,17 @@ object FormatoDocumento {
 
         val documento =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                    "<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">" +
+                    "<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" " +
+                    "xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" " +
+                    "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">" +
                     "<w:body>$cuerpo</w:body></w:document>"
 
-        val tipos =
+        val tiposBase =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">" +
                     "<Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>" +
                     "<Default Extension=\"xml\" ContentType=\"application/xml\"/>" +
-                    "<Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>" +
-                    "</Types>"
+                    "<Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>"
 
         val rels =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
@@ -259,13 +269,104 @@ object FormatoDocumento {
                     "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>" +
                     "</Relationships>"
 
-        return empaquetarZip(
+        if (datosImagen == null) {
+            return empaquetarZip(
+                listOf(
+                    "[Content_Types].xml" to tiposBase + "</Types>",
+                    "_rels/.rels" to rels,
+                    "word/document.xml" to documento
+                )
+            )
+        }
+
+        val tipos = tiposBase +
+                "<Default Extension=\"${datosImagen.extension}\" ContentType=\"${datosImagen.mime}\"/>" +
+                "<Override PartName=\"/word/_rels/document.xml.rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>" +
+                "</Types>"
+
+        val relsDoc =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                    "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">" +
+                    "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/image\" Target=\"media/imagen1.${datosImagen.extension}\"/>" +
+                    "</Relationships>"
+
+        val entradas = mutableListOf(
+            "[Content_Types].xml" to tipos,
+            "_rels/.rels" to rels,
+            "word/document.xml" to documento,
+            "word/_rels/document.xml.rels" to relsDoc
+        )
+
+        return empaquetarZipBytes(
+            entradas,
             listOf(
-                "[Content_Types].xml" to tipos,
-                "_rels/.rels" to rels,
-                "word/document.xml" to documento
+                "word/media/imagen1.${datosImagen.extension}" to datosImagen.bytes
             )
         )
+    }
+
+    private data class ImagenDocx(
+        val bytes: ByteArray,
+        val extension: String,
+        val mime: String,
+        val anchoEmu: Long,
+        val altoEmu: Long
+    )
+
+    private fun prepararImagen(
+        imagen: ByteArray?
+    ): ImagenDocx? {
+        if (imagen == null || imagen.size < 100) return null
+
+        val esJpg = imagen.size > 2 &&
+                imagen[0] == 0xFF.toByte() &&
+                imagen[1] == 0xD8.toByte()
+
+        val opciones = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        BitmapFactory.decodeByteArray(imagen, 0, imagen.size, opciones)
+
+        val ancho = opciones.outWidth
+        val alto = opciones.outHeight
+        if (ancho <= 0 || alto <= 0) return null
+
+        val emuPorPixel = 9525L
+        val maxAncho = 5486400L
+        var cx = ancho * emuPorPixel
+        var cy = alto * emuPorPixel
+        if (cx > maxAncho) {
+            cy = cy * maxAncho / cx
+            cx = maxAncho
+        }
+
+        return ImagenDocx(
+            imagen,
+            if (esJpg) "jpg" else "png",
+            if (esJpg) "image/jpeg" else "image/png",
+            cx,
+            cy
+        )
+    }
+
+    private fun parrafoImagenDocx(
+        imagen: ImagenDocx
+    ): String {
+        return "<w:p><w:r><w:drawing>" +
+                "<wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">" +
+                "<wp:extent cx=\"${imagen.anchoEmu}\" cy=\"${imagen.altoEmu}\"/>" +
+                "<wp:docPr id=\"1\" name=\"Imagen\"/>" +
+                "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\">" +
+                "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
+                "<pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
+                "<pic:nvPicPr><pic:cNvPr id=\"1\" name=\"imagen.${imagen.extension}\"/><pic:cNvPicPr/></pic:nvPicPr>" +
+                "<pic:blipFill><a:blip r:embed=\"rId1\"/>" +
+                "<a:stretch><a:fillRect/></a:stretch></pic:blipFill>" +
+                "<pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\"/>" +
+                "<a:ext cx=\"${imagen.anchoEmu}\" cy=\"${imagen.altoEmu}\"/>" +
+                "</a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom></pic:spPr>" +
+                "</pic:pic></a:graphicData></a:graphic>" +
+                "</wp:inline></w:drawing></w:r></w:p>"
     }
 
     private fun nombreColumna(indice: Int): String {
@@ -393,11 +494,26 @@ object FormatoDocumento {
     private fun empaquetarZip(
         entradas: List<Pair<String, String>>
     ): ByteArray {
+        return empaquetarZipBytes(
+            entradas,
+            emptyList()
+        )
+    }
+
+    private fun empaquetarZipBytes(
+        textos: List<Pair<String, String>>,
+        binarios: List<Pair<String, ByteArray>>
+    ): ByteArray {
         val buffer = ByteArrayOutputStream()
         ZipOutputStream(buffer).use { zip ->
-            for ((nombre, contenido) in entradas) {
+            for ((nombre, contenido) in textos) {
                 zip.putNextEntry(ZipEntry(nombre))
                 zip.write(contenido.toByteArray(Charsets.UTF_8))
+                zip.closeEntry()
+            }
+            for ((nombre, bytes) in binarios) {
+                zip.putNextEntry(ZipEntry(nombre))
+                zip.write(bytes)
                 zip.closeEntry()
             }
         }

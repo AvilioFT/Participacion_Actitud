@@ -17,19 +17,14 @@
     <!-- Consulta -->
     <string name="titulo_consulta">Realizar consulta</string>
     <string name="lbl_fecha_inicio">Fecha inicial (AAAA-MM-DD)</string>
-    <string name="hint_fecha_inicio">2026-09-01</string>
     <string name="texto_fecha_inicio">2026-09-01</string>
     <string name="lbl_fecha_fin">Fecha final (AAAA-MM-DD)</string>
-    <string name="hint_fecha_fin">2026-09-07</string>
     <string name="texto_fecha_fin">2026-09-07</string>
     <string name="lbl_magnitud">Magnitud mínima</string>
-    <string name="hint_magnitud">4.0</string>
     <string name="texto_magnitud">4.0</string>
     <string name="lbl_fecha">Fecha (AAAA-MM-DD)</string>
-    <string name="hint_fecha_nasa">2026-09-06</string>
     <string name="texto_fecha_nasa">2026-09-06</string>
     <string name="lbl_localidad">Localidad</string>
-    <string name="hint_localidad">Ejemplo: Rosario</string>
     <string name="btn_consultar">Consultar API</string>
     <string name="ayuda_usgs">Rango de fechas y magnitud mínima del terremoto.</string>
     <string name="ayuda_nasa">Fecha de la imagen astronómica que quieres ver.</string>
@@ -51,12 +46,12 @@
     <string name="btn_descargar">Descargar</string>
     <string name="btn_eliminar">Eliminar</string>
     <string name="lbl_formato">Formato de descarga</string>
+    <string name="msg_generando">Generando documento…</string>
 
     <!-- Tipo de cambio -->
     <string name="lbl_tc_inicio">Fecha inicial (AAAA-MM-DD)</string>
     <string name="lbl_tc_fin">Fecha final (AAAA-MM-DD, máx. 15 días)</string>
     <string name="lbl_monto">Monto a convertir</string>
-    <string name="hint_monto">Ejemplo: 100</string>
     <string name="texto_monto">100</string>
     <string name="lbl_direccion">Dirección de conversión</string>
     <string name="dir_sol_a_dol">Soles (S/) → Dólares ($)</string>

@@ -15,9 +15,11 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import org.json.JSONArray
 import org.json.JSONObject
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.Executors
 
 class TextosActivity : AppCompatActivity() {
 
@@ -31,6 +33,8 @@ class TextosActivity : AppCompatActivity() {
 
     private var textoSeleccionadoId: String? = null
     private var formatoSeleccionado: FormatoDocumento.Formato? = null
+
+    private val executorDescarga = Executors.newSingleThreadExecutor()
 
     private val preferences by lazy {
         getSharedPreferences(
@@ -173,6 +177,17 @@ class TextosActivity : AppCompatActivity() {
             )
         }
 
+        val imagen = intent.getStringExtra(
+            "TEXTO_IMAGEN"
+        )
+
+        if (!imagen.isNullOrEmpty()) {
+            nuevoTexto.put(
+                "imagen",
+                imagen
+            )
+        }
+
         textos.put(nuevoTexto)
 
         guardarTextos(textos)
@@ -180,6 +195,7 @@ class TextosActivity : AppCompatActivity() {
         intent.removeExtra("API_SELECCIONADA")
         intent.removeExtra("TEXTO_BASE")
         intent.removeExtra("TEXTO_CSV")
+        intent.removeExtra("TEXTO_IMAGEN")
     }
 
     private fun obtenerTextos(): JSONArray {
@@ -455,6 +471,13 @@ class TextosActivity : AppCompatActivity() {
             return
         }
 
+        val imagenUrl = texto.optString("imagen", "")
+
+        if (formato.id == "docx" && imagenUrl.isNotEmpty()) {
+            guardarDocxConImagen(uri, texto, imagenUrl)
+            return
+        }
+
         try {
 
             val bytes = FormatoDocumento.generar(
@@ -465,12 +488,7 @@ class TextosActivity : AppCompatActivity() {
                 texto.optString("csv", "")
             )
 
-            contentResolver
-                .openOutputStream(uri)
-                ?.use { outputStream ->
-
-                    outputStream.write(bytes)
-                }
+            escribirBytes(uri, bytes)
 
             Toast.makeText(
                 this,
@@ -485,6 +503,78 @@ class TextosActivity : AppCompatActivity() {
                 "Error al guardar: ${e.message}",
                 Toast.LENGTH_LONG
             ).show()
+        }
+    }
+
+    private fun escribirBytes(
+        uri: Uri,
+        bytes: ByteArray
+    ) {
+        contentResolver
+            .openOutputStream(uri)
+            ?.use { outputStream ->
+                outputStream.write(bytes)
+            }
+    }
+
+    private fun guardarDocxConImagen(
+        uri: Uri,
+        texto: JSONObject,
+        imagenUrl: String
+    ) {
+        Toast.makeText(
+            this,
+            getString(R.string.msg_generando),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        executorDescarga.execute {
+            try {
+                val conexion = URL(imagenUrl).openConnection()
+                conexion.connectTimeout = 15_000
+                conexion.readTimeout = 15_000
+                val imagenBytes = conexion.getInputStream().use {
+                    it.readBytes()
+                }
+
+                val bytes = FormatoDocumento.generar(
+                    "docx",
+                    texto.optString("api", "API"),
+                    texto.optString("fecha", ""),
+                    texto.optString("contenido", ""),
+                    texto.optString("csv", ""),
+                    imagenBytes
+                )
+
+                escribirBytes(uri, bytes)
+
+                runOnUiThread {
+                    Toast.makeText(
+                        this,
+                        "Archivo DOCX con imagen guardado correctamente.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(
+                        this,
+                        "No se pudo descargar la imagen; DOCX sin imagen: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                try {
+                    val bytes = FormatoDocumento.generar(
+                        "docx",
+                        texto.optString("api", "API"),
+                        texto.optString("fecha", ""),
+                        texto.optString("contenido", ""),
+                        texto.optString("csv", "")
+                    )
+                    escribirBytes(uri, bytes)
+                } catch (_: Exception) {
+                }
+            }
         }
     }
 
@@ -529,5 +619,10 @@ class TextosActivity : AppCompatActivity() {
             )
 
         return "${apiLimpia}_${fechaLimpia}.$extension"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        executorDescarga.shutdown()
     }
 }
