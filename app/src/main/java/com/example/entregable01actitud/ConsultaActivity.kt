@@ -2,6 +2,7 @@ package com.example.entregable01actitud
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -10,6 +11,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import com.google.android.material.datepicker.MaterialDatePicker
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -110,6 +112,9 @@ class ConsultaActivity : AppCompatActivity() {
         edtMagnitud =
             findViewById(R.id.edtMagnitud)
 
+        configurarSelectorFecha(edtFechaInicio)
+        configurarSelectorFecha(edtFechaFin)
+
         btnConsultar.setOnClickListener {
             consultarUsgs()
         }
@@ -121,6 +126,8 @@ class ConsultaActivity : AppCompatActivity() {
 
         edtFechaNasa =
             findViewById(R.id.edtFechaNasa)
+
+        configurarSelectorFecha(edtFechaNasa)
 
         btnConsultar.setOnClickListener {
             consultarNasa()
@@ -154,6 +161,9 @@ class ConsultaActivity : AppCompatActivity() {
 
         radioGroupDir =
             findViewById(R.id.radioGroupDir)
+
+        configurarSelectorFecha(edtTcInicio)
+        configurarSelectorFecha(edtTcFin)
 
         btnConsultar.setOnClickListener {
             consultarTc()
@@ -387,7 +397,12 @@ class ConsultaActivity : AppCompatActivity() {
                 val resultado =
                     procesarNasa(respuesta)
 
-                abrirResultados(resultado)
+                abrirResultados(
+                    resultado.first,
+                    null,
+                    resultado.second,
+                    resultado.third
+                )
 
             } catch (e: Exception) {
 
@@ -398,7 +413,7 @@ class ConsultaActivity : AppCompatActivity() {
         }
     }
 
-    private fun procesarNasa(json: String): String {
+    private fun procesarNasa(json: String): Triple<String, String?, String> {
 
         val objeto =
             JSONObject(json)
@@ -438,7 +453,7 @@ class ConsultaActivity : AppCompatActivity() {
                 "N/D"
             )
 
-        return """
+        val texto = """
             NASA - Astronomy Picture of the Day
 
             Fecha: $fecha
@@ -453,6 +468,12 @@ class ConsultaActivity : AppCompatActivity() {
             URL:
             $url
         """.trimIndent()
+
+        val imagen = url.takeIf {
+            tipo == "image" && it.startsWith("http")
+        }
+
+        return Triple(texto, imagen, tipo)
     }
 
     private fun consultarGeoref() {
@@ -946,7 +967,9 @@ class ConsultaActivity : AppCompatActivity() {
 
     private fun abrirResultados(
         resultados: String,
-        csv: String? = null
+        csv: String? = null,
+        imagenUrl: String? = null,
+        tipoMedio: String? = null
     ) {
 
         runOnUiThread {
@@ -973,6 +996,20 @@ class ConsultaActivity : AppCompatActivity() {
                 intent.putExtra(
                     "RESULTADOS_CSV",
                     csv
+                )
+            }
+
+            if (!imagenUrl.isNullOrEmpty()) {
+                intent.putExtra(
+                    "IMAGEN_URL",
+                    imagenUrl
+                )
+            }
+
+            if (!tipoMedio.isNullOrEmpty()) {
+                intent.putExtra(
+                    "TIPO_MEDIO",
+                    tipoMedio
                 )
             }
 
@@ -1025,6 +1062,47 @@ class ConsultaActivity : AppCompatActivity() {
     ): Boolean {
         return Regex("^\\d{4}-\\d{2}-\\d{2}$")
             .matches(fecha)
+    }
+
+    private fun configurarSelectorFecha(
+        campo: EditText?
+    ) {
+        campo?.apply {
+            isFocusable = false
+            isClickable = true
+            inputType = InputType.TYPE_NULL
+            setOnClickListener {
+                mostrarCalendario(this)
+            }
+        }
+    }
+
+    private fun mostrarCalendario(
+        campo: EditText
+    ) {
+        val zonaUtc = TimeZone.getTimeZone("UTC")
+        val formato = SimpleDateFormat("yyyy-MM-dd", Locale.US).apply {
+            timeZone = zonaUtc
+            isLenient = false
+        }
+
+        val actual = try {
+            formato.parse(campo.text.toString().trim())?.time
+        } catch (e: Exception) {
+            null
+        } ?: MaterialDatePicker.todayInUtcMilliseconds()
+
+        val selector = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.titulo_calendario))
+            .setSelection(actual)
+            .build()
+
+        selector.addOnPositiveButtonClickListener { millis ->
+            campo.setText(formato.format(Date(millis)))
+            txtError.text = ""
+        }
+
+        selector.show(supportFragmentManager, "selector_fecha")
     }
 
     private fun formatearCoordenada(

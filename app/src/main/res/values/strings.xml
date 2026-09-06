@@ -38,6 +38,8 @@
     <!-- Resultados -->
     <string name="titulo_resultados">Resultados</string>
     <string name="btn_generar_texto">Generar texto plano</string>
+    <string name="btn_abrir_video">Abrir video</string>
+    <string name="desc_imagen_nasa">Imagen astronómica del día (NASA)</string>
 
     <!-- Textos -->
     <string name="titulo_textos">Mis textos</string>
@@ -60,4 +62,5 @@
     <string name="dir_sol_a_dol">Soles (S/) → Dólares ($)</string>
     <string name="dir_dol_a_sol">Dólares ($) → Soles (S/)</string>
     <string name="ayuda_tc">Tipo de cambio oficial BCRP/SBS por día. Si el BCRP no responde, se usa un TC referencial.</string>
+    <string name="titulo_calendario">Elige una fecha</string>
 </resources>

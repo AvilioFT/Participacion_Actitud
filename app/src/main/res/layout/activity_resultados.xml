@@ -22,6 +22,37 @@
         android:textAppearance="?attr/textAppearanceTitleMedium" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp">
+
+            <ImageView
+                android:id="@+id/imgNasa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/desc_imagen_nasa"
+                android:scaleType="centerCrop" />
+
+            <ProgressBar
+                android:id="@+id/progressImagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -45,6 +76,14 @@
         </ScrollView>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btnAbrirVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btn_abrir_video"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnGenerarTexto"
