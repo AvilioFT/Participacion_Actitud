@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Entregable01Actitud" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gb_primary</item>
+        <item name="colorOnPrimary">@color/gb_on_primary</item>
+        <item name="colorSecondary">@color/gb_secondary</item>
+        <item name="colorTertiary">@color/gb_tertiary</item>
+        <item name="colorError">@color/gb_error</item>
+        <item name="colorSurface">@color/gb_surface</item>
+        <item name="colorOnSurface">@color/gb_fg</item>
+        <item name="colorSurfaceVariant">@color/gb_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/gb_muted</item>
+        <item name="android:windowBackground">@color/gb_bg</item>
+        <item name="colorControlHighlight">@color/gb_surface_variant</item>
+    </style>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gruvbox oscuro -->
+    <color name="gb_bg">#282828</color>
+    <color name="gb_surface">#3C3836</color>
+    <color name="gb_surface_variant">#504945</color>
+    <color name="gb_fg">#EBDBB2</color>
+    <color name="gb_muted">#A89984</color>
+    <color name="gb_primary">#83A598</color>
+    <color name="gb_on_primary">#282828</color>
+    <color name="gb_secondary">#8EC07C</color>
+    <color name="gb_tertiary">#D3869B</color>
+    <color name="gb_accent">#FABD2F</color>
+    <color name="gb_error">#FB4934</color>
+</resources>

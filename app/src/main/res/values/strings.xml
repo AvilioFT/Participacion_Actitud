@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Entregable01 + Actitud</string>
+
+    <!-- Principal -->
+    <string name="titulo_app">API Explorer</string>
+    <string name="subtitulo_app">Consulta datos públicos mediante APIs</string>
+    <string name="elige_api">Selecciona una API</string>
+    <string name="nombre_usgs">USGS Earthquakes</string>
+    <string name="nombre_nasa">NASA</string>
+    <string name="nombre_georef">Georef</string>
+    <string name="nombre_tcambio">Tipo de Cambio S/ $</string>
+    <string name="desc_tcambio">Conversión soles ↔ dólares por días (Perú, BCRP)</string>
+    <string name="desc_usgs">Terremotos en tiempo real (USGS)</string>
+    <string name="desc_nasa">Foto astronómica del día (NASA)</string>
+    <string name="desc_georef">Localidades de Argentina (Georef)</string>
+
+    <!-- Consulta -->
+    <string name="titulo_consulta">Realizar consulta</string>
+    <string name="lbl_fecha_inicio">Fecha inicial (AAAA-MM-DD)</string>
+    <string name="hint_fecha_inicio">2026-09-01</string>
+    <string name="texto_fecha_inicio">2026-09-01</string>
+    <string name="lbl_fecha_fin">Fecha final (AAAA-MM-DD)</string>
+    <string name="hint_fecha_fin">2026-09-07</string>
+    <string name="texto_fecha_fin">2026-09-07</string>
+    <string name="lbl_magnitud">Magnitud mínima</string>
+    <string name="hint_magnitud">4.0</string>
+    <string name="texto_magnitud">4.0</string>
+    <string name="lbl_fecha">Fecha (AAAA-MM-DD)</string>
+    <string name="hint_fecha_nasa">2026-09-06</string>
+    <string name="texto_fecha_nasa">2026-09-06</string>
+    <string name="lbl_localidad">Localidad</string>
+    <string name="hint_localidad">Ejemplo: Rosario</string>
+    <string name="btn_consultar">Consultar API</string>
+    <string name="ayuda_usgs">Rango de fechas y magnitud mínima del terremoto.</string>
+    <string name="ayuda_nasa">Fecha de la imagen astronómica que quieres ver.</string>
+    <string name="ayuda_georef">Nombre de la localidad argentina a buscar.</string>
+
+    <!-- Resultados -->
+    <string name="titulo_resultados">Resultados</string>
+    <string name="btn_generar_texto">Generar texto plano</string>
+
+    <!-- Textos -->
+    <string name="titulo_textos">Mis textos</string>
+    <string name="subtitulo_textos">Selecciona un texto generado</string>
+    <string name="sin_textos">Todavía no tienes textos generados. Realiza una consulta y pulsa “Generar texto plano”.</string>
+    <string name="titulo_texto_seleccionado">Texto seleccionado</string>
+    <string name="placeholder_texto">Selecciona un texto y pulsa VER TEXTO.</string>
+    <string name="btn_ver_texto">Ver texto</string>
+    <string name="btn_descargar">Descargar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="lbl_formato">Formato de descarga</string>
+
+    <!-- Tipo de cambio -->
+    <string name="lbl_tc_inicio">Fecha inicial (AAAA-MM-DD)</string>
+    <string name="lbl_tc_fin">Fecha final (AAAA-MM-DD, máx. 15 días)</string>
+    <string name="lbl_monto">Monto a convertir</string>
+    <string name="hint_monto">Ejemplo: 100</string>
+    <string name="texto_monto">100</string>
+    <string name="lbl_direccion">Dirección de conversión</string>
+    <string name="dir_sol_a_dol">Soles (S/) → Dólares ($)</string>
+    <string name="dir_dol_a_sol">Dólares ($) → Soles (S/)</string>
+    <string name="ayuda_tc">Tipo de cambio oficial BCRP/SBS por día. Si el BCRP no responde, se usa un TC referencial.</string>
+</resources>
