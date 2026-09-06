@@ -1,6 +1,6 @@
-# Entregable 01 — API Explorer (Actitud)
+# Participación y Actitud — API Explorer
 
-App Android que consulta APIs públicas, guarda cada consulta en un historial local
+App Android (nota de participación y actitud) que consulta APIs públicas, guarda cada consulta en un historial local
 (`SharedPreferences`) y permite exportar los resultados en varios formatos de documento.
 
 ## Funcionalidades

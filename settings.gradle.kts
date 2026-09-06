@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Entregable01 + Actitud"
+rootProject.name = "Participacion y Actitud"
 include(":app")
  
