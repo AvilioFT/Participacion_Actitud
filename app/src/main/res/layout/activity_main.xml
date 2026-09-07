@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/github_background"
     android:fillViewport="true"
     tools:context=".MainActivity">
 
@@ -12,80 +13,120 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="22dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/titulo_app"
                     android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                    android:textColor="?attr/colorPrimary" />
+                    android:textColor="@color/github_text_primary"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/subtitulo_app"
-                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@color/github_text_secondary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@color/github_border" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elige_api"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/github_text_secondary" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/elige_api"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:gravity="center_vertical"
+                android:minHeight="82dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@color/github_background"
+                    android:gravity="center"
+                    android:text="US"
+                    android:textColor="@color/github_accent"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre_usgs"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/github_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/desc_usgs"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="@color/github_text_secondary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUsgs"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_usgs"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/gb_accent" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/desc_usgs"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                <Button
-                    android:id="@+id/btnUsgs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre_usgs" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/github_accent"
+                    app:strokeColor="@color/github_border" />
 
             </LinearLayout>
 
@@ -94,36 +135,65 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:gravity="center_vertical"
+                android:minHeight="82dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@color/github_background"
+                    android:gravity="center"
+                    android:text="NA"
+                    android:textColor="@color/github_accent"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre_nasa"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/github_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/desc_nasa"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="@color/github_text_secondary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNasa"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_nasa"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/gb_accent" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/desc_nasa"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                <Button
-                    android:id="@+id/btnNasa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre_nasa" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/github_accent"
+                    app:strokeColor="@color/github_border" />
 
             </LinearLayout>
 
@@ -132,36 +202,65 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:gravity="center_vertical"
+                android:minHeight="82dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@color/github_background"
+                    android:gravity="center"
+                    android:text="GE"
+                    android:textColor="@color/github_accent"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre_georef"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/github_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/desc_georef"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="@color/github_text_secondary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGeoref"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_georef"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/gb_accent" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/desc_georef"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                <Button
-                    android:id="@+id/btnGeoref"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre_georef" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/github_accent"
+                    app:strokeColor="@color/github_border" />
 
             </LinearLayout>
 
@@ -170,36 +269,65 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:gravity="center_vertical"
+                android:minHeight="82dp"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@color/github_background"
+                    android:gravity="center"
+                    android:text="TC"
+                    android:textColor="@color/github_accent"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre_tcambio"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/github_text_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/desc_tcambio"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="@color/github_text_secondary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTcambio"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_tcambio"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="@color/gb_accent" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/desc_tcambio"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                <Button
-                    android:id="@+id/btnTcambio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nombre_tcambio" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/github_accent"
+                    app:strokeColor="@color/github_border" />
 
             </LinearLayout>
 

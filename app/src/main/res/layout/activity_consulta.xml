@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/github_background"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -17,46 +18,57 @@
             android:layout_marginBottom="4dp"
             android:text="@string/titulo_consulta"
             android:textAppearance="?attr/textAppearanceHeadlineSmall"
-            android:textColor="?attr/colorPrimary" />
+            android:textColor="@color/github_text_primary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtApi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-
-        <!-- ========================= -->
-        <!-- USGS -->
-        <!-- ========================= -->
+            android:layout_marginBottom="24dp"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="@color/github_text_secondary" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layoutUsgs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:visibility="gone"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/ayuda_usgs"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/github_text_secondary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:hint="@string/lbl_fecha_inicio">
+                    android:hint="@string/lbl_fecha_inicio"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtFechaInicio"
@@ -64,7 +76,9 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
                         android:inputType="date"
-                        android:text="@string/texto_fecha_inicio" />
+                        android:text="@string/texto_fecha_inicio"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +86,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:hint="@string/lbl_fecha_fin">
+                    android:hint="@string/lbl_fecha_fin"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtFechaFin"
@@ -80,21 +103,34 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
                         android:inputType="date"
-                        android:text="@string/texto_fecha_fin" />
+                        android:text="@string/texto_fecha_fin"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lbl_magnitud">
+                    android:hint="@string/lbl_magnitud"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtMagnitud"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:text="@string/texto_magnitud" />
+                        android:text="@string/texto_magnitud"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,36 +138,45 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========================= -->
-        <!-- NASA -->
-        <!-- ========================= -->
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layoutNasa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:visibility="gone"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/ayuda_nasa"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/github_text_secondary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lbl_fecha">
+                    android:hint="@string/lbl_fecha"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtFechaNasa"
@@ -139,7 +184,9 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
                         android:inputType="date"
-                        android:text="@string/texto_fecha_nasa" />
+                        android:text="@string/texto_fecha_nasa"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,43 +194,54 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========================= -->
-        <!-- GEOREF -->
-        <!-- ========================= -->
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layoutGeoref"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:visibility="gone"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/ayuda_georef"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/github_text_secondary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lbl_localidad">
+                    android:hint="@string/lbl_localidad"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtLocalidad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="addressLocality"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,37 +249,46 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========================= -->
-        <!-- TIPO DE CAMBIO S/ $ -->
-        <!-- ========================= -->
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/layoutTc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:visibility="gone"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            app:cardBackgroundColor="@color/github_surface"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/github_border"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/ayuda_tc"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/github_text_secondary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:hint="@string/lbl_tc_inicio">
+                    android:hint="@string/lbl_tc_inicio"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtTcInicio"
@@ -229,7 +296,9 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
                         android:inputType="date"
-                        android:text="@string/texto_fecha_inicio" />
+                        android:text="@string/texto_fecha_inicio"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -237,7 +306,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:hint="@string/lbl_tc_fin">
+                    android:hint="@string/lbl_tc_fin"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtTcFin"
@@ -245,22 +323,35 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="date"
                         android:inputType="date"
-                        android:text="@string/texto_fecha_fin" />
+                        android:text="@string/texto_fecha_fin"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:hint="@string/lbl_monto">
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/lbl_monto"
+                    android:textColorHint="@color/github_text_secondary"
+                    app:boxBackgroundColor="@color/github_surface"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="@color/github_accent"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:hintTextColor="@color/github_text_secondary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtMonto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:text="@string/texto_monto" />
+                        android:text="@string/texto_monto"
+                        android:textColor="@color/github_text_primary"
+                        android:textColorHint="@color/github_text_secondary" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -269,7 +360,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/lbl_direccion"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    android:textColor="@color/github_text_primary" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupDir"
@@ -281,14 +373,18 @@
                         android:id="@+id/rdbSolADol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/github_accent"
                         android:checked="true"
-                        android:text="@string/dir_sol_a_dol" />
+                        android:text="@string/dir_sol_a_dol"
+                        android:textColor="@color/github_text_primary" />
 
                     <RadioButton
                         android:id="@+id/rdbDolASol"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/dir_dol_a_sol" />
+                        android:buttonTint="@color/github_accent"
+                        android:text="@string/dir_dol_a_sol"
+                        android:textColor="@color/github_text_primary" />
 
                 </RadioGroup>
 
@@ -296,22 +392,24 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========================= -->
-        <!-- BOTÓN -->
-        <!-- ========================= -->
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConsultar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_consultar" />
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/btn_consultar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="@color/github_accent"
+            app:cornerRadius="6dp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
+            android:indeterminateTint="@color/github_accent"
             android:visibility="gone" />
 
         <TextView
@@ -320,7 +418,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?attr/colorError" />
+            android:textColor="@color/github_danger" />
 
     </LinearLayout>
 
